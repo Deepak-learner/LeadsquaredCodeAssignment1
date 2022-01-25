@@ -1,31 +1,28 @@
-
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3dhcmFqdHJpdmVkaSIsImEiOiJja3lsbjJmamYwMG9jMndwODFqbG5vaXFjIn0.n2hD-RnDq3YHE6kcczMmeg';
 
 // Checking for browser support and if browser support geolocation api, call getCurrentPosition method.
 function detectlocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showLocation, showError);
-    }
-    else {
+    } else {
         alert("Your browser not support geolocation api");
     }
 }
 
 // A success callback function to get the location of user.
 function showLocation(pos) {
-  
     let map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [ pos.coords.longitude, pos.coords.latitude ],
+        center: [pos.coords.longitude, pos.coords.latitude],
         zoom: 13
     })
     latt = pos.coords.latitude;
     long = pos.coords.longitude;
     x = document.getElementById('location');
-    x.innerHTML = "Your coordinates are - " + "latitude: " + latt + ",   longitude: " + long;
-    let marker = new mapboxgl.Marker().setLngLat([ pos.coords.longitude, pos.coords.latitude ]).addTo(map);
-   
+    x.innerHTML = "Your coordinates are - " + "Latitude: " + latt + ",   Longitude: " + long;
+    let marker = new mapboxgl.Marker().setLngLat([pos.coords.longitude, pos.coords.latitude])
+        .addTo(map);
 }
 
 // An error callback function 
