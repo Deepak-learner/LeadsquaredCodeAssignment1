@@ -1,3 +1,6 @@
+
+mapboxgl.accessToken = 'pk.eyJ1Ijoic3dhcmFqdHJpdmVkaSIsImEiOiJja3lsbjJmamYwMG9jMndwODFqbG5vaXFjIn0.n2hD-RnDq3YHE6kcczMmeg';
+
 // Checking for browser support and if browser support geolocation api, call getCurrentPosition method.
 function detectlocation() {
     if (navigator.geolocation) {
@@ -10,20 +13,19 @@ function detectlocation() {
 
 // A success callback function to get the location of user.
 function showLocation(pos) {
+  
+    let map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [ pos.coords.longitude, pos.coords.latitude ],
+        zoom: 13
+    })
     latt = pos.coords.latitude;
     long = pos.coords.longitude;
-    var lattlong = new google.maps.LatLng(latt, long);
-    var options = {
-        center: lattlong,
-        zoom: 15,
-        mapTypeControl: true,
-        navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL }
-    }
-    var coordinates = "Your coordinates are - " + "latitude: " + latt + ",   longitude: " + long;
-    document.getElementById("position").innerHTML = coordinates;
-    var maps = new google.maps.Map(document.getElementById("location"), options);
-    // To mark user location on map google maps provide marker.
-    var markers = new google.maps.Marker({ position: lattlong, map: maps, title: "your position" });
+    x = document.getElementById('location');
+    x.innerHTML = "Your coordinates are - " + "latitude: " + latt + ",   longitude: " + long;
+    let marker = new mapboxgl.Marker().setLngLat([ pos.coords.longitude, pos.coords.latitude ]).addTo(map);
+   
 }
 
 // An error callback function 
@@ -43,5 +45,3 @@ function showError(error) {
         break;
     }
 }
-
-
